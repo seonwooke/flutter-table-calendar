@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../controllers/controllers.dart';
+import '../../widgets/widgets.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({super.key});
@@ -14,6 +15,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: _appBarWidget(),
       body: _bodyWidget(),
+      floatingActionButton: MyFloatingActionButton(),
     );
   }
 
@@ -42,8 +44,13 @@ class HomeView extends StatelessWidget {
                 return isSameDay(
                     tableCalendarController.selectedDay.value, day);
               },
+              headerStyle: const HeaderStyle(
+                titleCentered: true,
+                formatButtonVisible: false,
+              ),
             );
           }),
+          const Divider(),
         ],
       ),
     );
