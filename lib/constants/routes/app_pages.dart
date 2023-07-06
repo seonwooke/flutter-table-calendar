@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../bindings/bindings.dart';
 import '../../views/views.dart';
 import 'routes.dart';
 
@@ -11,7 +12,8 @@ class AppPages {
   var pages = [
     GetPage(
       name: AppRoutes.instance.HOME,
-      page: () => const HomeView(),
+      page: () => HomeView(),
+      binding: HomeBinding(),
     ),
   ];
 }

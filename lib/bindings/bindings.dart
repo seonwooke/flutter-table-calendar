@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
 
-class InitBinding implements Bindings {
+import '../controllers/controllers.dart';
+
+class HomeBinding implements Bindings {
   @override
-  void dependencies() {}
+  void dependencies() {
+    Get.put(TableCalendarController());
+  }
 }
