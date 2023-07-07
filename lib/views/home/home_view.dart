@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../auth/auth.dart';
 import '../../controllers/controllers.dart';
 import '../../widgets/widgets.dart';
 
@@ -9,9 +12,14 @@ class HomeView extends StatelessWidget {
   HomeView({super.key});
 
   final tableCalendarController = Get.put(TableCalendarController());
+  final currentUser = FirebaseAuth.instance.currentUser!.email;
 
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode) {
+      print("[USER INFO] $currentUser");
+    }
+
     return Scaffold(
       appBar: _appBarWidget(),
       body: _bodyWidget(),
@@ -22,6 +30,22 @@ class HomeView extends StatelessWidget {
   _appBarWidget() {
     return AppBar(
       title: const Text('TABLE CALENDAR'),
+      actions: [
+        IconButton(
+          icon: const Icon(
+            Icons.exit_to_app,
+          ),
+          onPressed: () async {
+            try {
+              await Authentication.instance.signOutWithGoogle();
+            } catch (error) {
+              if (kDebugMode) {
+                print(error);
+              }
+            }
+          },
+        )
+      ],
     );
   }
 

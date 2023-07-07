@@ -1,4 +1,4 @@
-name: boiler_plate
+name: flutter_table_calendar
 description: A new Flutter project.
 publish_to: 'none'
 
@@ -20,6 +20,7 @@ dependencies:
   cloud_firestore: ^4.8.2
   table_calendar: ^3.0.9
   flutter_speed_dial: ^7.0.0
+  google_sign_in: ^6.1.4
 
 dev_dependencies:
   flutter_test:
@@ -30,4 +31,5 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
-  
+  assets:
+    - assets/images/

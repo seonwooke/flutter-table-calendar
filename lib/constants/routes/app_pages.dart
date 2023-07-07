@@ -11,6 +11,14 @@ class AppPages {
 
   var pages = [
     GetPage(
+      name: AppRoutes.instance.INIT,
+      page: () => const InitView(),
+    ),
+    GetPage(
+      name: AppRoutes.instance.SIGNIN,
+      page: () => SigninView(),
+    ),
+    GetPage(
       name: AppRoutes.instance.HOME,
       page: () => HomeView(),
       binding: HomeBinding(),

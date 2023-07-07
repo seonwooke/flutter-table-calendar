@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "500181429441",
+    "project_id": "flutter-table-calendar-5afe2",
+    "storage_bucket": "flutter-table-calendar-5afe2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500181429441:android:3c9f4efa9636eade203840",
+        "android_client_info": {
+          "package_name": "com.example.table_calendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500181429441-dbepau85djv7pu3qq1fefs25qs2ae4o8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbT7Sv8sFrpDdb2-SC7fiFGz-MhkDRBpk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "500181429441-dbepau85djv7pu3qq1fefs25qs2ae4o8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
