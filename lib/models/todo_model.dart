@@ -1,47 +1,53 @@
 import 'dart:convert';
 
 class TodoModel {
+  String? tid;
   String? uid;
   String? desc;
-  DateTime? madeDay;
+  DateTime? selectedDate;
   bool? checked;
 
   TodoModel({
+    required this.tid,
     required this.uid,
     required this.desc,
-    required this.madeDay,
+    required this.selectedDate,
     required this.checked,
   });
 
   TodoModel copyWith({
+    String? tid,
     String? uid,
     String? desc,
-    DateTime? madeDay,
+    DateTime? selectedDate,
     bool? checked,
   }) {
     return TodoModel(
+      tid: tid ?? this.tid,
       uid: uid ?? this.uid,
       desc: desc ?? this.desc,
-      madeDay: madeDay ?? this.madeDay,
+      selectedDate: selectedDate ?? this.selectedDate,
       checked: checked ?? this.checked,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'tid': tid,
       'uid': uid,
       'desc': desc,
-      'madeDay': madeDay?.microsecondsSinceEpoch,
+      'selectedDate': selectedDate!.microsecondsSinceEpoch,
       'checked': checked,
     };
   }
 
   factory TodoModel.fromMap(Map<String, dynamic> map) {
     return TodoModel(
+      tid: map['tid'] != null ? map['tid'] as String : null,
       uid: map['uid'] != null ? map['uid'] as String : null,
       desc: map['desc'] != null ? map['desc'] as String : null,
-      madeDay: map['madeDay'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['madeDay'] as int)
+      selectedDate: map['selectedDate'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['selectedDate'] as int)
           : null,
       checked: map['checked'] != null ? map['checked'] as bool : null,
     );
@@ -54,19 +60,21 @@ class TodoModel {
 
   factory TodoModel.empty() {
     return TodoModel(
+      tid: '',
       uid: '',
       desc: '',
-      madeDay: DateTime.now(),
+      selectedDate: DateTime.now(),
       checked: false,
     );
   }
 
   factory TodoModel.add(TodoModel todoModel) {
     return TodoModel(
+      tid: todoModel.tid,
       uid: todoModel.uid,
       desc: todoModel.desc,
-      madeDay: todoModel.madeDay,
-      checked: todoModel.checked,
+      selectedDate: DateTime.now(),
+      checked: false,
     );
   }
 }

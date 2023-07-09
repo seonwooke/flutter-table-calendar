@@ -1,9 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../repositories/repositories.dart';
 
 class MyFloatingActionButton extends StatelessWidget {
-  MyFloatingActionButton({super.key});
+  final User? user;
+  final DateTime selectedDay;
+  MyFloatingActionButton({
+    required this.user,
+    required this.selectedDay,
+    Key? key,
+  }) : super(key: key);
 
   final TextEditingController _addTodoController = TextEditingController();
 
@@ -80,7 +90,15 @@ class MyFloatingActionButton extends StatelessWidget {
                   ),
                   const SizedBox(width: 58),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      TodoRepository.instance.addTodoToFirebase(
+                        const Uuid().v4(),
+                        user!.uid,
+                        _addTodoController.text,
+                        selectedDay,
+                      );
+                      Get.back();
+                    },
                     child: const Text(
                       'CONFIRM',
                       style: TextStyle(

@@ -12,18 +12,19 @@ class HomeView extends StatelessWidget {
   HomeView({super.key});
 
   final tableCalendarController = Get.put(TableCalendarController());
-  final currentUser = FirebaseAuth.instance.currentUser!.email;
+  final currentUser = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print("[USER INFO] $currentUser");
-    }
-
     return Scaffold(
       appBar: _appBarWidget(),
       body: _bodyWidget(),
-      floatingActionButton: MyFloatingActionButton(),
+      floatingActionButton: Obx(() {
+        return MyFloatingActionButton(
+          user: currentUser,
+          selectedDay: tableCalendarController.focusedDay.value,
+        );
+      }),
     );
   }
 
@@ -62,6 +63,10 @@ class HomeView extends StatelessWidget {
               onDaySelected: (DateTime sd, DateTime fd) {
                 tableCalendarController.selectedDay.value = sd;
                 tableCalendarController.focusedDay.value = fd;
+                // print(
+                //     "[selectedDay] : ${tableCalendarController.selectedDay.value}");
+                // print(
+                //     "[focusedDay] : ${tableCalendarController.focusedDay.value}");
               },
               selectedDayPredicate: (DateTime day) {
                 // selectedDay 와 동일한 날짜의 모양을 바꿔줍니다.

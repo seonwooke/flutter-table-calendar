@@ -11,14 +11,9 @@ class SigninView extends StatelessWidget {
   SigninView({super.key});
 
   final signController = Get.put(SignController());
-  final currentUser = FirebaseAuth.instance.currentUser!.email;
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print("[USER INFO] $currentUser");
-    }
-
     return Scaffold(
       body: _bodyWidget(),
     );

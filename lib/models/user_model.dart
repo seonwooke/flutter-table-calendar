@@ -6,22 +6,26 @@ class UserModel {
   String? uid;
   String? email;
   String? nickName;
+  List<String>? todoList;
 
   UserModel({
     required this.uid,
     required this.email,
     required this.nickName,
+    required this.todoList,
   });
 
   UserModel copyWith({
     String? uid,
     String? email,
     String? nickName,
+    List<String>? todoList,
   }) {
     return UserModel(
       uid: uid ?? this.uid,
       email: email ?? this.email,
       nickName: nickName ?? this.nickName,
+      todoList: todoList ?? this.todoList,
     );
   }
 
@@ -30,6 +34,7 @@ class UserModel {
       'uid': uid,
       'email': email,
       'nickName': nickName,
+      'todoList': todoList!.toSet().toList(),
     };
   }
 
@@ -38,6 +43,8 @@ class UserModel {
       uid: map['uid'] != null ? map['uid'] as String : null,
       email: map['email'] != null ? map['email'] as String : null,
       nickName: map['nickName'] != null ? map['nickName'] as String : null,
+      todoList:
+          map['todoList'] != null ? List<String>.from(map['todoList']) : [],
     );
   }
 
@@ -51,6 +58,7 @@ class UserModel {
       uid: '',
       email: '',
       nickName: '',
+      todoList: [],
     );
   }
 
@@ -59,6 +67,7 @@ class UserModel {
       uid: user.uid,
       email: user.email,
       nickName: user.displayName,
+      todoList: [],
     );
   }
 }

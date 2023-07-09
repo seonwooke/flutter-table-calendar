@@ -10,6 +10,19 @@ class UserRepository {
 
   final _userCollection = FirebaseFirestore.instance.collection("users");
 
+  Future<void> addUserToFirebase(UserModel userModel) async {
+    try {
+      if (kDebugMode) {
+        print('${userModel.email} is created');
+      }
+      await _userCollection.doc(userModel.uid).set(userModel.toMap());
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+    }
+  }
+
   Future<UserModel> getUser(String uid) async {
     UserModel userModel = UserModel.empty();
     try {
@@ -24,18 +37,5 @@ class UserRepository {
     }
 
     return userModel;
-  }
-
-  Future<void> addUserToFirebase(UserModel userModel) async {
-    try {
-      if (kDebugMode) {
-        print('${userModel.email} is created');
-      }
-      await _userCollection.doc(userModel.uid).set(userModel.toMap());
-    } catch (error) {
-      if (kDebugMode) {
-        print(error);
-      }
-    }
   }
 }
