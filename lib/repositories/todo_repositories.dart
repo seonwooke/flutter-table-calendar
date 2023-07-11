@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_table_calendar/controllers/user_controller.dart';
 import 'package:intl/intl.dart';
 
 import '../models/models.dart';
@@ -10,27 +11,10 @@ class TodoRepository {
 
   final _userCollection = FirebaseFirestore.instance.collection("users");
 
-  Future<void> setTodoToFirebase(
-      String tid, String uid, String desc, DateTime dateTime) async {
-    String formatDate = DateFormat('yyyy-MM-dd').format(dateTime);
-    var todoModel = TodoModel(
-      tid: tid,
-      uid: uid,
-      desc: desc,
-      selectedDate: dateTime,
-      checked: false,
-    );
-
-    await _userCollection.doc(uid).collection("todoList").doc(formatDate).set({
-      'todos': FieldValue.arrayUnion([todoModel.toMap()])
-    });
-
-    print("[SUCCESS] ${desc} Todo Setted");
-  }
-
   Future<void> addTodoToFirebase(
       String tid, String uid, String desc, DateTime dateTime) async {
-    String formatDate = DateFormat('yyyy-MM-dd').format(dateTime);
+    // String formatDate = DateFormat('yyyy-MM-dd').format(dateTime);
+    final todoCollection = _userCollection.doc(uid).collection('todoList');
     var todoModel = TodoModel(
       tid: tid,
       uid: uid,
@@ -38,15 +22,39 @@ class TodoRepository {
       selectedDate: dateTime,
       checked: false,
     );
+    var isExisted = await todoCollection.doc(dateTime.toString()).get();
 
-    await _userCollection
+    if (isExisted.exists) {
+      await todoCollection.doc(dateTime.toString()).update({
+        'todos': FieldValue.arrayUnion([todoModel.toMap()])
+      });
+    } else {
+      await todoCollection.doc(dateTime.toString()).set({
+        'todos': FieldValue.arrayUnion([todoModel.toMap()])
+      });
+    }
+
+    print("[SUCCESS] ${dateTime.toString()} : ${desc}");
+  }
+
+  Stream<List<DocumentSnapshot>> getDocList(String uid) {
+    return _userCollection
         .doc(uid)
-        .collection("todoList")
-        .doc(formatDate)
-        .update({
-      'todos': FieldValue.arrayUnion([todoModel.toMap()])
+        .collection('todoList')
+        .snapshots()
+        .map((qs) {
+      setTodoList(qs.docs);
+      return qs.docs;
     });
+  }
 
-    print("[SUCCESS] ${desc} Todo added");
+  setTodoList(List<QueryDocumentSnapshot<Map<String, dynamic>>> qdsList) {
+    List<Map<String, dynamic>> todoList = [];
+
+    for (var qds in qdsList) {
+      Map<String, dynamic> todo = qds.data();
+      todoList.add(todo);
+      UserController.instance.todoList.value = (todoList);
+    }
   }
 }

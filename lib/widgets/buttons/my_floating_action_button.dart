@@ -96,6 +96,7 @@ class MyFloatingActionButton extends StatelessWidget {
                         _addTodoController.text,
                         selectedDay,
                       );
+                      _addTodoController.text = "";
                       Get.back();
                     },
                     child: const Text(

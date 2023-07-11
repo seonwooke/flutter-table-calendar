@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +12,8 @@ class UserController extends GetxController {
   final currentUserModel = UserModel.empty().obs;
   final currentUserUid = FirebaseAuth.instance.currentUser!.uid;
 
-  final todoList = <TodoModel>[].obs;
+  final todoListDocList = <DocumentSnapshot>[].obs;
+  final todoList = <Map<String, dynamic>>[].obs;
 
   Future<void> init() async {
     UserModel userModel = await UserRepository.instance.getUser(currentUserUid);
@@ -19,6 +21,8 @@ class UserController extends GetxController {
       await Authentication.instance.signOutWithGoogle();
     } else {
       currentUserModel.value = userModel;
+      todoListDocList
+          .bindStream(TodoRepository.instance.getDocList(currentUserUid));
     }
   }
 

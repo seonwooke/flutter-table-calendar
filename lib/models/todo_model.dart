@@ -46,9 +46,11 @@ class TodoModel {
       tid: map['tid'] != null ? map['tid'] as String : null,
       uid: map['uid'] != null ? map['uid'] as String : null,
       desc: map['desc'] != null ? map['desc'] as String : null,
-      selectedDate: map['selectedDate'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['selectedDate'] as int)
-          : null,
+      // selectedDate: map['selectedDate'] != null
+      //     ? DateTime.fromMillisecondsSinceEpoch(map['selectedDate'] as int)
+      //     : null,
+      selectedDate:
+          map['selectedDate'] != null ? map['selectedDate'] as DateTime : null,
       checked: map['checked'] != null ? map['checked'] as bool : null,
     );
   }
@@ -73,7 +75,7 @@ class TodoModel {
       tid: todoModel.tid,
       uid: todoModel.uid,
       desc: todoModel.desc,
-      selectedDate: DateTime.now(),
+      selectedDate: todoModel.selectedDate,
       checked: false,
     );
   }
