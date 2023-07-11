@@ -11,8 +11,9 @@ import '../../widgets/widgets.dart';
 class HomeView extends StatelessWidget {
   HomeView({super.key});
 
-  final tableCalendarController = Get.put(TableCalendarController());
-  final currentUser = FirebaseAuth.instance.currentUser;
+  // final tableCalendarController = Get.put(TableCalendarController());
+  final tableCalendarController = TableCalendarController.instance;
+  final userController = UserController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class HomeView extends StatelessWidget {
       body: _bodyWidget(),
       floatingActionButton: Obx(() {
         return MyFloatingActionButton(
-          user: currentUser,
+          userUid: userController.currentUserUid,
           selectedDay: tableCalendarController.focusedDay.value,
         );
       }),
@@ -63,10 +64,6 @@ class HomeView extends StatelessWidget {
               onDaySelected: (DateTime sd, DateTime fd) {
                 tableCalendarController.selectedDay.value = sd;
                 tableCalendarController.focusedDay.value = fd;
-                // print(
-                //     "[selectedDay] : ${tableCalendarController.selectedDay.value}");
-                // print(
-                //     "[focusedDay] : ${tableCalendarController.focusedDay.value}");
               },
               selectedDayPredicate: (DateTime day) {
                 // selectedDay 와 동일한 날짜의 모양을 바꿔줍니다.

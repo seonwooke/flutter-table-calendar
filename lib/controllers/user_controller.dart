@@ -11,6 +11,8 @@ class UserController extends GetxController {
   final currentUserModel = UserModel.empty().obs;
   final currentUserUid = FirebaseAuth.instance.currentUser!.uid;
 
+  final todoList = <TodoModel>[].obs;
+
   Future<void> init() async {
     UserModel userModel = await UserRepository.instance.getUser(currentUserUid);
     if (userModel.uid == null) {

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
@@ -7,10 +6,10 @@ import 'package:uuid/uuid.dart';
 import '../../repositories/repositories.dart';
 
 class MyFloatingActionButton extends StatelessWidget {
-  final User? user;
+  final String userUid;
   final DateTime selectedDay;
   MyFloatingActionButton({
-    required this.user,
+    required this.userUid,
     required this.selectedDay,
     Key? key,
   }) : super(key: key);
@@ -93,7 +92,7 @@ class MyFloatingActionButton extends StatelessWidget {
                     onTap: () {
                       TodoRepository.instance.addTodoToFirebase(
                         const Uuid().v4(),
-                        user!.uid,
+                        userUid,
                         _addTodoController.text,
                         selectedDay,
                       );
