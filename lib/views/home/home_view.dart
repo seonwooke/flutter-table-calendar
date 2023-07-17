@@ -42,7 +42,7 @@ class HomeView extends StatelessWidget {
             try {
               await Authentication.instance.signOutWithGoogle();
             } catch (error) {
-              if (kDebugMode) {
+              ㅡ,./ if (kDebugMode) {
                 print(error);
               }
             }
@@ -65,8 +65,8 @@ class HomeView extends StatelessWidget {
               tableCalendarController.selectedDay.value = sd;
               tableCalendarController.focusedDay.value = fd;
 
-              // var date = DateTime.fromMicrosecondsSinceEpoch(
-              //     userController.todoList[0]['todos'][0]['selectedDate']);
+              var date = DateTime.fromMicrosecondsSinceEpoch(
+                  userController.todoList[0]['todos'][0]['selectedDate']);
               // String fetchedDate = DateFormat('yyyy-MM-dd').format(date);
               // String selectedDate = DateFormat('yyyy-MM-dd')
               //     .format(tableCalendarController.selectedDay.value);
