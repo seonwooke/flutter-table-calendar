@@ -42,7 +42,7 @@ class HomeView extends StatelessWidget {
             try {
               await Authentication.instance.signOutWithGoogle();
             } catch (error) {
-              ㅡ,./ if (kDebugMode) {
+              if (kDebugMode) {
                 print(error);
               }
             }
